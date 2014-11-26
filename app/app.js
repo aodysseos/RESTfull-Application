@@ -43,13 +43,14 @@ app.use(function(req, res, next) {
 app.use(orm.express(database.connectionString, {
     define: function (db, models, next) {
         database.define(db, models);
-        db.sync(function (err) {
+            next();
+            db.cache = false;
+            db.sync(function (err) {
             if (err) {
                 console.log('Sync Error, err:', err);
             } else {
                 console.log('Sync ok');
             }
-            next();
         });
     }   
 }));
