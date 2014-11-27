@@ -1,16 +1,15 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var orm = require('orm');
-var swig = require('swig');
-var methodOverride = require('method-override');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-
-var database = require('./models/database');
-var routes = require('./routes/index');
-var questions = require('./routes/questions');
+var express = require('express')
+  , bodyParser = require('body-parser')
+  , orm = require('orm')
+  , swig  = require('swig')
+  , methodOverride = require('method-override')
+  , path = require('path')
+  , favicon = require('serve-favicon')
+  , logger = require('morgan')
+  , cookieParser = require('cookie-parser')
+  , database = require('./models/database')
+  , routes = require('./routes/index')
+  , questions = require('./routes/questions');
 
 var app = express();
 
@@ -19,8 +18,7 @@ app.engine('html', swig.renderFile); // render html with swing
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use('/', routes);
-app.use('/questions', questions);
+
 
 //app.enable('strict routing');
 app.use(orm.express(database.connectionString));
@@ -33,18 +31,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
 
 app.use(orm.express(database.connectionString, {
-    define: function (db, models, next) {
+    define: function (db, models) {
         database.define(db, models);
-            next();
-            db.cache = false;
+           // next();
+            //db.cache = false;
             db.sync(function (err) {
             if (err) {
                 console.log('Sync Error, err:', err);
@@ -54,5 +46,8 @@ app.use(orm.express(database.connectionString, {
         });
     }   
 }));
+
+app.use('/', routes);
+app.use('/questions', questions);
 
 module.exports = app;
