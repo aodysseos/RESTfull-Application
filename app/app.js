@@ -6,10 +6,12 @@ var express = require('express')
   , path = require('path')
   , favicon = require('serve-favicon')
   , logger = require('morgan')
-  , cookieParser = require('cookie-parser')
-  , database = require('./models/database')
-  , routes = require('./routes/index')
-  , questions = require('./routes/questions');
+  , cookieParser = require('cookie-parser');
+
+var database = require('./models/database');
+
+var index = require('./routes/index');
+var questions = require('./routes/questions');
 
 var app = express();
 
@@ -17,8 +19,6 @@ var app = express();
 app.engine('html', swig.renderFile); // render html with swing
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
-
-
 
 //app.enable('strict routing');
 app.use(orm.express(database.connectionString));
@@ -28,8 +28,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(orm.express(database.connectionString, {
     define: function (db, models) {
@@ -46,7 +46,7 @@ app.use(orm.express(database.connectionString, {
     }   
 }));
 
-app.use('/', routes);
-app.use('/questions', questions);
+app.use('/', index);
+app.use('/', questions);
 
 module.exports = app;
