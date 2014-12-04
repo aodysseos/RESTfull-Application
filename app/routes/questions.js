@@ -20,11 +20,6 @@ router.get('/questions', function(req, res) {
 			});
 });
 
-/* GET form add a question */
-router.get('/questions/add', function (req, res) {
-	 res.render('add', { title: "Add a question" });
-});
-
 /* GET single question. */
 router.get('/questions/:id', function(req, res) {
         req.models.question.get(
@@ -42,7 +37,7 @@ router.get('/questions/:id', function(req, res) {
 });
 
 /* POST add a question */
-router.post('/questions/add', function (req, res) {
+router.post('/questions', function (req, res) {
 	var q_title = req.body.title;
 	var q_content = req.body.content;
 	// Note: Needs to validate the data
