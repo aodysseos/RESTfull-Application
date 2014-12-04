@@ -1,4 +1,5 @@
 var express = require('express');
+var swig  = require('swig');
 var router = express.Router();
 
 /* GET questions listing. */
@@ -12,7 +13,10 @@ router.get('/questions', function(req, res) {
 					return;
 				}
 				// send to the client what we found in the DB
-				res.send(JSON.stringify(all_questions));
+				if(req.accepts('html', 'json') == 'json')
+					res.send(JSON.stringify(all_questions));
+				else
+					res.render('questions', {all_questions: all_questions});
 			});
 });
 
