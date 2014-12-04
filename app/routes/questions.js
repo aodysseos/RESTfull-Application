@@ -46,7 +46,7 @@ router.post('/questions', function (req, res) {
 	// we get all the information we need or expect
 	// node-orm2 provides some utilities for validating the models
 	req.models.question.create(
-			[{ title: req.body.title;, content: req.body.content },],
+			[{ title: req.body.title, content: req.body.content },],
 			function (err, questions_created)
 			{
 				if(req.accepts('html', 'json') == 'json')
