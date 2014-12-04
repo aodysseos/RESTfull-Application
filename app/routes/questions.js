@@ -54,7 +54,7 @@ router.post('/questions', function (req, res) {
 				if(req.accepts('html', 'json') == 'json')
 					res.send(JSON.stringify(questions_created));
 				else
-					res.redirect('/questions');
+					res.redirect('/questions/' + questions_created[0].id);
 			});
 });
 
@@ -108,6 +108,5 @@ router.put('/questions/:id', function(req, res) {
 					res.redirect('/questions/' + req.params.id);
                         });
 });
-
 
 module.exports = router;
