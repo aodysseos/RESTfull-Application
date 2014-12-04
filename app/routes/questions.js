@@ -32,7 +32,10 @@ router.get('/questions/:id', function(req, res) {
                                         return;
                                 }
                                 // send to the client what we found in the DB
-                                res.send(JSON.stringify(question));
+                                if(req.accepts('html', 'json') == 'json')
+                                        res.send(JSON.stringify(question));
+                                else
+                                        res.render('question', {question: question});
                         });
 });
 
