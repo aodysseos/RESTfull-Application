@@ -31,22 +31,26 @@ router.get('/questions/:id', function(req, res) {
 					res.status(404).send(req.url + " not found\n\n");
                                         return;
                                 }
+				question.getAnswers(function(err, answers){
                                 // send to the client what we found in the DB
                                 if(req.accepts('html', 'json') == 'json')
                                         res.send(JSON.stringify(question));
                                 else
                                         res.render('question', {question: question});
+				});
                         });
 });
 
 /* POST add a question */
 router.post('/questions', function (req, res) {
+	var q_title = req.body.title;
+	var q_content = req.body.content;
 	// Note: Needs to validate the data
 	// received through the request, to make sure
 	// we get all the information we need or expect
 	// node-orm2 provides some utilities for validating the models
 	req.models.question.create(
-			[{ title: req.body.title, content: req.body.content },],
+			[{ title: q_title, content: q_content },],
 			function (err, questions_created)
 			{
 				if(req.accepts('html', 'json') == 'json')
@@ -105,6 +109,32 @@ router.put('/questions/:id', function(req, res) {
 				else
 					res.redirect('/questions/' + req.params.id);
                         });
+});
+
+/* POST new answer to question */
+router.post('/questions/:id/answers', function(req, res) {
+	req.models.question.get(
+		req.params.id,
+		{}, // no options
+		  function (err, question) {
+                                if (err) {
+                                        console.log('error!', err);
+                                        res.status(404).send(req.url + " not found\n\n");
+                                        return;
+                                }
+		console.log("Adding answer to question " + question.id);
+		req.models.answer.create(
+			[{ title: req.body.title, content: req.body.content, question_id: question.id },],
+			function (err, answers_created)
+			{
+				if(err)
+					console.log(err);
+								if(req.accepts('html', 'json') == 'json')
+					res.send(JSON.stringify(answers_created));
+				else
+					res.redirect('/questions/' + question.id);
+			});
+});
 });
 
 

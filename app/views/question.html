@@ -20,6 +20,19 @@
 	<form method="POST" action="?_method=DELETE">
 		<button type="submit">Delete question!</button>
 	</form>
+	<h2>Answers</h2>
+	{% for answer in question.answers %}
+	<article>
+	<h3>{{answer.title}}</h3>
+	<p>{{answer.content}}</p>
+	</article>
+	{% endfor %}
+	<h2>Add your own answer!</h2>
+	        <form method="POST" action="{{question.id}}/answers">
+                <input type="text" name="title" id="title">
+                <input type="text" name="content" id="content">
+                <button type="submit">Answer!</button>
+        </form>
 	</body>
 	<footer>
 		<p>COMP6218 RESTful Application assginment</p>
