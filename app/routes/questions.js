@@ -6,19 +6,38 @@ router.get('/questions', function(req, res) {
 	req.models.question.find(
 			{}, // search parameters: anything 
 			{}, // no options
-			function (err, question_list) {
+			function (err, all_questions) {
 				if (err) {
 					console.log('error!', err);
 					return;
 				}
 				// send to the client what we found in the DB
-				res.render('questions', JSON.stringify(question_list));
-				//res.send(JSON.stringify(all_questions));
+				res.send(JSON.stringify(all_questions));
 			});
 });
 
-/* POST a question */
-router.post('/questions', function (req, res) {
+/* GET form add a question */
+router.get('/questions/add', function (req, res) {
+	 res.render('add', { title: "Add a question" });
+});
+
+/* GET single question. */
+router.get('/questions/:id', function(req, res) {
+        req.models.question.get(
+                        req.params.id,
+                        {}, // no options
+                        function (err, all_questions) {
+                                if (err) {
+                                        console.log('error!', err);
+                                        return;
+                                }
+                                // send to the client what we found in the DB
+                                res.send(JSON.stringify(all_questions));
+                        });
+});
+
+/* POST add a question */
+router.post('/questions/add', function (req, res) {
 	var q_title = req.body.title;
 	var q_content = req.body.content;
 	// Note: Needs to validate the data
@@ -32,14 +51,18 @@ router.post('/questions', function (req, res) {
 			});
 });
 
-/* GET single question. */
-router.get('/questions/:id', function(req, res) {
-  	if(questions.length <= req.params.id || req.params.id < 0) {
-	    res.statusCode = 404;
-	    res.render('questions', { title: "Error 404", content: "No question found" });
-  	}  
-  	var q = questions[req.params.id];
- 	res.render('questions', { title: q.title, content: q.content });
+/* DELETE a question */
+router.delete('/questions/:id', function(req, res) {
+	req.models.question.find({id: req.params.id}).remove(function(err){
+		if(err)
+		{
+			console.log('error!', err);
+			return;
+		}
+		console.log("Removed question " + req.params.id + "\n");
+		res.send("Removed question " + req.params.id + "\n");
+	});
 });
+
 
 module.exports = router;
