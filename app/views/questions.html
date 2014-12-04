@@ -15,7 +15,7 @@
 		</form>
 		{% for question in all_questions %}
 		<article>
-			<h2>{{ question.title }}</h2>
+			<h2><a href="/questions/{{ question.id }}">{{ question.title }}</a></h2>
 			<p>{{ question.content }}</p>
 		</article>
 		{% endfor %}
