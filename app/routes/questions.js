@@ -49,8 +49,12 @@ router.post('/questions', function (req, res) {
 	// node-orm2 provides some utilities for validating the models
 	req.models.question.create(
 			[{ title: q_title, content: q_content },],
-			function (err, questions_created) {
-				res.send(JSON.stringify(questions_created));
+			function (err, questions_created)
+			{
+				if(req.accepts('html', 'json') == 'json')
+					res.send(JSON.stringify(questions_created));
+				else
+					res.redirect('/questions');
 			});
 });
 
@@ -71,8 +75,11 @@ router.delete('/questions/:id', function(req, res) {
 						console.log('error!', err);
 						return;
 					}
-					console.log("Removed question " + req.params.id + "\n");
-					res.send("Removed question " + req.params.id + "\n");
+                                if(req.accepts('html', 'json') == 'json')
+                                        res.send(JSON.stringify({deleted: true}));
+                                else
+                                        res.redirect('/questions');
+
 				});
                         });
 });
@@ -95,7 +102,10 @@ router.put('/questions/:id', function(req, res) {
                                                 return;
                                         }
                                 });
-				res.send(JSON.stringify(question));
+				if(req.accepts('html', 'json') == 'json')
+					res.send(JSON.stringify(question));
+				else
+					res.redirect('/questions/' + req.params.id);
                         });
 });
 
