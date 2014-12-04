@@ -41,14 +41,12 @@ router.get('/questions/:id', function(req, res) {
 
 /* POST add a question */
 router.post('/questions', function (req, res) {
-	var q_title = req.body.title;
-	var q_content = req.body.content;
 	// Note: Needs to validate the data
 	// received through the request, to make sure
 	// we get all the information we need or expect
 	// node-orm2 provides some utilities for validating the models
 	req.models.question.create(
-			[{ title: q_title, content: q_content },],
+			[{ title: req.body.title;, content: req.body.content },],
 			function (err, questions_created)
 			{
 				if(req.accepts('html', 'json') == 'json')
@@ -108,5 +106,6 @@ router.put('/questions/:id', function(req, res) {
 					res.redirect('/questions/' + req.params.id);
                         });
 });
+
 
 module.exports = router;
