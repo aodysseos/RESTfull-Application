@@ -13,7 +13,6 @@ router.get('/questions', function(req, res) {
 				return;
 			}
 			// send to the client what we found in the DB
-			console.log(req.accepts('html', 'json'));
 			if(req.accepts('html', 'json') == false)
 			{
 				res.status(406).send("Not Acceptable\n\n");
