@@ -66,7 +66,7 @@ router.get('/questions/:qid/comments/:cid', function(req, res) {
 				res.send(JSON.stringify(comment));
 			}
 			else
-				res.render('comment', {comment: comment});
+				res.render('q_comment', {comment: comment});
 		});
 });
 
