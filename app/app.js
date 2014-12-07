@@ -12,6 +12,7 @@ var database = require('./models/database');
 
 var index = require('./routes/index');
 var questions = require('./routes/questions');
+var answers = require('./routes/answers');
 
 var app = express();
 
