@@ -148,15 +148,21 @@ router.get('/questions/:qid/answers/:aid', function(req, res) {
                                         res.status(404).send(req.url + " not found\n\n");
                                         return;
                                 }
-                                answer.getQuestion(function(err, question){
+				//Only display the answer if it's requested for the right question
+				if(answer.question_id != req.params.qid)
+				{
+					console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
+					res.status(409).send("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id + "\n\n");
+					return;
+				}
                                 // send to the client what we found in the DB
                                 if(req.accepts('html', 'json') == 'json')
                                         res.send(JSON.stringify(answer));
                                 else
                                         res.render('answer', {answer: answer});
-                                });
                         });
 });
+
 	
 
 module.exports = router;
