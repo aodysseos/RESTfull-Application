@@ -19,7 +19,10 @@ router.get('/questions', function(req, res) {
 				return;
 			}
 			else if(req.accepts('html', 'json') == 'json')
+			{
+				res.set('Content-Type', 'application/json');
 				res.send(JSON.stringify(all_questions));
+			}
 			else
 				res.render('questions', {all_questions: all_questions});
 	});
@@ -44,7 +47,10 @@ router.get('/questions/:id', function(req, res) {
 					return;
 				}
 				else if(req.accepts('html', 'json') == 'json')
+				{
+					res.set('Content-Type', 'application/json');
 					res.send(JSON.stringify(question));
+				}
 				else
 					res.render('question', {question: question});
 			});
@@ -66,7 +72,10 @@ router.post('/questions', function (req, res) {
 				return;
 			}
 			else if(req.accepts('html', 'json') == 'json')
+			{
+				res.set('Content-Type', 'application/json');
 				res.send(JSON.stringify(questions_created));
+			}
 			else
 				res.redirect(303, '/questions/' + questions_created[0].id);
 	});
@@ -95,7 +104,10 @@ router.delete('/questions/:id', function(req, res) {
 					return;
 				}
 				else if(req.accepts('html', 'json') == 'json')
+				{
+					res.set('Content-Type', 'application/json');
 					res.send(JSON.stringify({deleted: true}));
+				}
 				else
 					res.redirect(303, '/questions');
 			});
@@ -126,7 +138,10 @@ router.put('/questions/:id', function(req, res) {
 				return;
 			}
 			else if(req.accepts('html', 'json') == 'json')
+			{
+				res.set('Content-Type', 'application/json');
 				res.send(JSON.stringify(question));
+			}
 			else
 				res.redirect(303, '/questions/' + req.params.id);
 	});
