@@ -119,5 +119,25 @@ router.delete('/questions/:qid/answers/:aid', function(req, res) {
                         });
 });
 	
+/* GET all answers to a question */
+router.get('/questions/:id/answers', function(req, res) {
+        req.models.question.get(
+                        req.params.id,
+                        {}, // no options
+                        function (err, question) {
+                                if (err) {
+                                        console.log('error!', err);
+					res.status(404).send(req.url + " not found\n\n");
+                                        return;
+                                }
+				question.getAnswers(function(err, answers){
+                                // send to the client what we found in the DB
+                                if(req.accepts('html', 'json') == 'json')
+                                        res.send(JSON.stringify(answers));
+                                else
+					res.redirect(301, '/questions/' + req.params.id);
+				});
+                        });
+});
 
 module.exports = router;
