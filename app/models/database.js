@@ -23,7 +23,10 @@ module.exports.define = function(db, models) {
 		content: String
 	});
 
-		models.answer.hasOne('Question', db.models.question, {reverse: 'Answers'});
-		models.q_comment.hasOne('Question', db.models.question, {reverse: 'Comments'});
-		models.a_comment.hasOne('Answer', db.models.answer, {reverse: 'Comments'});
+		models.answer.hasOne('question', db.models.question, {reverse: 'answers'});
+		models.q_comment.hasOne('question', db.models.question, {reverse: 'comments'});
+		models.a_comment.hasOne('answer', db.models.answer, {reverse: 'comments'});
+		models.answer.sync();
+		models.q_comment.sync();
+		models.a_comment.sync();
 };
