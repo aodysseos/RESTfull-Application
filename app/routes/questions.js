@@ -137,5 +137,26 @@ router.post('/questions/:id/answers', function(req, res) {
 });
 });
 
+/* GET answer */
+router.get('/questions/:qid/answers/:aid', function(req, res) {
+        req.models.answer.get(
+                        req.params.aid,
+                        {}, // no options
+                        function (err, answer) {
+                                if (err) {
+                                        console.log('error!', err);
+                                        res.status(404).send(req.url + " not found\n\n");
+                                        return;
+                                }
+                                answer.getQuestion(function(err, question){
+                                // send to the client what we found in the DB
+                                if(req.accepts('html', 'json') == 'json')
+                                        res.send(JSON.stringify(answer));
+                                else
+                                        res.render('answer', {answer: answer});
+                                });
+                        });
+});
+	
 
 module.exports = router;
