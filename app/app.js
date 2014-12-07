@@ -13,6 +13,7 @@ var database = require('./models/database');
 var index = require('./routes/index');
 var questions = require('./routes/questions');
 var answers = require('./routes/answers');
+var q_comments = require('./routes/q_comments');
 
 var app = express();
 
@@ -50,5 +51,6 @@ app.use(orm.express(database.connectionString, {
 app.use('/', index);
 app.use('/', questions);
 app.use('/', answers);
+app.use('/', q_comments);
 
 module.exports = app;

@@ -7,7 +7,7 @@
 	</head>	
 	<body>
 	<article>
-	<h2>{{question.title}}</h2>
+	<h1>{{question.title}}</h1>
 	<p>{{question.content}}</p>
 	</article>
 	<a href="/questions">Back to home page</a>
@@ -32,6 +32,19 @@
                 <input type="text" name="title" id="title">
                 <input type="text" name="content" id="content">
                 <button type="submit">Answer!</button>
+        </form>
+		<h2>Comments</h2>
+	{% for comment in question.comments %}
+	<article>
+	<h3><a href="{{question.id}}/comments/{{comment.id}}">{{comment.title}}</a></h3>
+	<p>{{comment.content}}</p>
+	</article>
+	{% endfor %}
+	<h2>Add your own comment!</h2>
+	        <form method="POST" action="{{question.id}}/comments">
+                <input type="text" name="title" id="title">
+                <input type="text" name="content" id="content">
+                <button type="submit">Post comment!</button>
         </form>
 	</body>
 	<footer>
