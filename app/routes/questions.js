@@ -195,6 +195,38 @@ router.put('/questions/:qid/answers/:aid', function(req, res) {
                                         res.redirect(303, '/questions/' + req.params.qid + '/answers/' + req.params.aid);
                         });
 });
+
+/* DELETE answer */
+router.delete('/questions/:qid/answers/:aid', function(req, res) {
+        req.models.answer.get(
+                        req.params.aid,
+                        {}, // no options
+                        function (err, answer) {
+                                if (err) {
+                                        console.log('error!', err);
+                                        res.status(404).send(req.url + " not found\n\n");
+                                        return;
+                                }
+				if(answer.question_id != req.params.qid)
+				{
+					console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
+					res.status(409).send("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id + "\n\n");
+					return;
+				}
+                                answer.remove(function(err){
+                                        if(err)
+                                        {
+                                                console.log('error!', err);
+                                                return;
+                                        }
+                                if(req.accepts('html', 'json') == 'json')
+                                        res.send(JSON.stringify({deleted: true}));
+                                else
+                                        res.redirect(303, '/questions/' + req.params.qid);
+
+                                });
+                        });
+});
 	
 
 module.exports = router;
