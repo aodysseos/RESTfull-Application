@@ -55,18 +55,20 @@ router.get('/questions/:qid/answers/:aid', function(req, res) {
 				return;
 			}
 			// send to the client what we found in the DB
-			if(req.accepts('html', 'json') == false)
-			{
-				res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
-				return;
-			}
-			else if(req.accepts('html', 'json') == 'json')
-			{
-				res.type('json');
-				res.send(JSON.stringify(answer));
-			}
-			else
-				res.render('answer', {answer: answer});
+			answer.getComments(function(err, comments){
+				if(req.accepts('html', 'json') == false)
+				{
+					res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+					return;
+				}
+				else if(req.accepts('html', 'json') == 'json')
+				{
+					res.type('json');
+					res.send(JSON.stringify(answer));
+				}
+				else
+					res.render('answer', {answer: answer});
+			});
 		});
 });
 
