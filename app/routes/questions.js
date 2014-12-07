@@ -21,7 +21,7 @@ router.get('/questions', function(req, res) {
 			else if(req.accepts('html', 'json') == 'json')
 			{
 				res.type('json');
-				res.send(JSON.stringify(all_questions));
+				res.send(JSON.stringify(all_questions).replace(/,?"(answers|comments)":\[[^\]]*\]/g,""));
 			}
 			else
 				res.render('questions', {all_questions: all_questions});
@@ -50,7 +50,7 @@ router.get('/questions/:id', function(req, res) {
 					else if(req.accepts('html', 'json') == 'json')
 					{
 						res.type('json');
-						res.send(JSON.stringify(question));
+						res.send(JSON.stringify(question).replace(/,?"(answers|comments)":\[[^\]]*\]/g,""));
 					}
 					else
 						res.render('question', {question: question});
@@ -76,7 +76,7 @@ router.post('/questions', function (req, res) {
 			else if(req.accepts('html', 'json') == 'json')
 			{
 				res.type('json');
-				res.send(JSON.stringify(questions_created));
+				res.send(JSON.stringify(questions_created).replace(/,?"(answers|comments)":\[[^\]]*\]/g,""));
 			}
 			else
 				res.redirect(303, '/questions/' + questions_created[0].id);
@@ -142,7 +142,7 @@ router.put('/questions/:id', function(req, res) {
 			else if(req.accepts('html', 'json') == 'json')
 			{
 				res.type('json');
-				res.send(JSON.stringify(question));
+				res.send(JSON.stringify(question).replace(/,?"(answers|comments)":\[[^\]]*\]/g,""));
 			}
 			else
 				res.redirect(303, '/questions/' + req.params.id);
