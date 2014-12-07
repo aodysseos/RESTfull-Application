@@ -20,7 +20,12 @@ router.post('/questions/:id/answers', function(req, res) {
 			{
 			if(err)
 				console.log(err);
-			if(req.accepts('html', 'json') == 'json')
+			if(req.accepts('html', 'json') == false)
+			{
+				res.status(406).send("Not Acceptable\n\n");
+				return;
+			}
+			else if(req.accepts('html', 'json') == 'json')
 				res.send(JSON.stringify(answers_created));
 			else
 				res.redirect(303, '/questions/' + question.id);
@@ -47,7 +52,12 @@ router.get('/questions/:qid/answers/:aid', function(req, res) {
 				return;
 			}
 			// send to the client what we found in the DB
-			if(req.accepts('html', 'json') == 'json')
+			if(req.accepts('html', 'json') == false)
+			{
+				res.status(406).send("Not Acceptable\n\n");
+				return;
+			}
+			else if(req.accepts('html', 'json') == 'json')
 				res.send(JSON.stringify(answer));
 			else
 				res.render('answer', {answer: answer});
@@ -79,7 +89,12 @@ router.put('/questions/:qid/answers/:aid', function(req, res) {
 					return;
 				}
 			});
-			if(req.accepts('html', 'json') == 'json')
+			if(req.accepts('html', 'json') == false)
+			{
+				res.status(406).send("Not Acceptable\n\n");
+				return;
+			}
+			else if(req.accepts('html', 'json') == 'json')
 				res.send(JSON.stringify(answer));
 			else
 				res.redirect(303, '/questions/' + req.params.qid + '/answers/' + req.params.aid);
@@ -109,7 +124,12 @@ router.delete('/questions/:qid/answers/:aid', function(req, res) {
 					console.log('error!', err);
 					return;
 				}
-				if(req.accepts('html', 'json') == 'json')
+				if(req.accepts('html', 'json') == false)
+				{
+					res.status(406).send("Not Acceptable\n\n");
+					return;
+				}
+				else if(req.accepts('html', 'json') == 'json')
 					res.send(JSON.stringify({deleted: true}));
 				else
 					res.redirect(303, '/questions/' + req.params.qid);
@@ -130,7 +150,12 @@ router.get('/questions/:id/answers', function(req, res) {
 			}
 			question.getAnswers(function(err, answers){
 				// send to the client what we found in the DB
-				if(req.accepts('html', 'json') == 'json')
+				if(req.accepts('html', 'json') == false)
+				{
+					res.status(406).send("Not Acceptable\n\n");
+					return;
+				}
+				else if(req.accepts('html', 'json') == 'json')
 					res.send(JSON.stringify(answers));
 				else
 					res.redirect(301, '/questions/' + req.params.id);
