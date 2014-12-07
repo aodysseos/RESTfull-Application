@@ -22,7 +22,7 @@ router.post('/questions/:id/answers', function(req, res) {
 				console.log(err);
 			if(req.accepts('html', 'json') == false)
 			{
-				res.status(406).send("Not Acceptable\n\n");
+				res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
 				return;
 			}
 			else if(req.accepts('html', 'json') == 'json')
@@ -57,7 +57,7 @@ router.get('/questions/:qid/answers/:aid', function(req, res) {
 			// send to the client what we found in the DB
 			if(req.accepts('html', 'json') == false)
 			{
-				res.status(406).send("Not Acceptable\n\n");
+				res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
 				return;
 			}
 			else if(req.accepts('html', 'json') == 'json')
@@ -97,7 +97,7 @@ router.put('/questions/:qid/answers/:aid', function(req, res) {
 			});
 			if(req.accepts('html', 'json') == false)
 			{
-				res.status(406).send("Not Acceptable\n\n");
+				res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
 				return;
 			}
 			else if(req.accepts('html', 'json') == 'json')
@@ -135,7 +135,7 @@ router.delete('/questions/:qid/answers/:aid', function(req, res) {
 				}
 				if(req.accepts('html', 'json') == false)
 				{
-					res.status(406).send("Not Acceptable\n\n");
+					res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
 					return;
 				}
 				else if(req.accepts('html', 'json') == 'json')
@@ -164,7 +164,7 @@ router.get('/questions/:id/answers', function(req, res) {
 				// send to the client what we found in the DB
 				if(req.accepts('html', 'json') == false)
 				{
-					res.status(406).send("Not Acceptable\n\n");
+					res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
 					return;
 				}
 				else if(req.accepts('html', 'json') == 'json')
