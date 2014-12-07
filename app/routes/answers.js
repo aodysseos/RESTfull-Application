@@ -27,7 +27,7 @@ router.post('/questions/:id/answers', function(req, res) {
 			}
 			else if(req.accepts('html', 'json') == 'json')
 			{
-				res.set('Content-Type', 'application/json');
+				res.type('json');
 				res.send(JSON.stringify(answers_created));
 			}
 			else
@@ -62,7 +62,7 @@ router.get('/questions/:qid/answers/:aid', function(req, res) {
 			}
 			else if(req.accepts('html', 'json') == 'json')
 			{
-				res.set('Content-Type', 'application/json');
+				res.type('json');
 				res.send(JSON.stringify(answer));
 			}
 			else
@@ -102,7 +102,7 @@ router.put('/questions/:qid/answers/:aid', function(req, res) {
 			}
 			else if(req.accepts('html', 'json') == 'json')
 			{
-				res.set('Content-Type', 'application/json');
+				res.type('json');
 				res.send(JSON.stringify(answer));
 			}
 			else
@@ -140,7 +140,7 @@ router.delete('/questions/:qid/answers/:aid', function(req, res) {
 				}
 				else if(req.accepts('html', 'json') == 'json')
 				{
-					res.set('Content-Type', 'application/json');
+					res.type('json');
 					res.send(JSON.stringify({deleted: true}));
 				}
 				else
@@ -169,7 +169,7 @@ router.get('/questions/:id/answers', function(req, res) {
 				}
 				else if(req.accepts('html', 'json') == 'json')
 				{
-					res.set('Content-Type', 'application/json');
+					res.type('json');
 					res.send(JSON.stringify(answers));
 				}
 				else
