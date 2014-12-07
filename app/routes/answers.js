@@ -48,7 +48,7 @@ router.get('/questions/:qid/answers/:aid', function(req, res) {
 			if(answer.question_id != req.params.qid)
 			{
 				console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
-				res.status(409).send("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id + "\n\n");
+				res.status(404).send(req.url + " not found\n\n");
 				return;
 			}
 			// send to the client what we found in the DB
@@ -78,7 +78,7 @@ router.put('/questions/:qid/answers/:aid', function(req, res) {
 			if(answer.question_id != req.params.qid)
 			{
 				console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
-				res.status(409).send("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id + "\n\n");
+				res.status(404).send(req.url + " not found\n\n");
 				return;
 			}
 			answer.save({title: req.body.title, content: req.body.content}, function(err){
@@ -115,7 +115,7 @@ router.delete('/questions/:qid/answers/:aid', function(req, res) {
 			if(answer.question_id != req.params.qid)
 			{
 				console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
-				res.status(409).send("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id + "\n\n");
+				res.status(404).send(req.url + " not found\n\n");
 				return;
 			}
 			answer.remove(function(err){
