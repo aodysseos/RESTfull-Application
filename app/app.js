@@ -1,12 +1,12 @@
-var express = require('express')
-  , bodyParser = require('body-parser')
-  , orm = require('orm')
-  , swig  = require('swig')
-  , methodOverride = require('method-override')
-  , path = require('path')
-  , favicon = require('serve-favicon')
-  , logger = require('morgan')
-  , cookieParser = require('cookie-parser');
+var express = require('express');
+var bodyParser = require('body-parser');
+var orm = require('orm');
+var swig  = require('swig');
+var methodOverride = require('method-override');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
 
 var database = require('./models/database');
 
@@ -37,16 +37,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(orm.express(database.connectionString, {
     define: function (db, models) {
         database.define(db, models);
-           // next();
-            //db.cache = false;
-            db.sync(function (err) {
+        db.sync(function (err) {
             if (err) {
                 console.log('Sync Error, err:', err);
             } else {
                 console.log('Sync ok');
             }
         });
-    }   
+    }
 }));
 
 app.use('/', index);

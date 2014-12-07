@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Express', text: 'Welcome to my RESTapp' });
+router.get('/', function (req, res) {
+    res.render('index', { title: 'Express', text: 'Welcome to my RESTapp' });
 });
 
 module.exports = router;
