@@ -49,5 +49,6 @@ app.use(orm.express(database.connectionString, {
 
 app.use('/', index);
 app.use('/', questions);
+app.use('/', answers);
 
 module.exports = app;
