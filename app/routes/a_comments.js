@@ -19,7 +19,7 @@ router.post('/questions/:qid/answers/:aid/comments', function (req, res) {
                 return;
             }
             //Only accept if it's requested for the right question
-            if (answer.question_id !== 	parseInt(req.params.qid)) {
+            if (answer.question_id !== parseInt(req.params.qid, 10)) {
                 console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
                 if (req.accepts('html', 'json') === 'json') {
                     res.type('json');
@@ -76,7 +76,7 @@ router.get('/questions/:qid/answers/:aid/comments/:cid', function (req, res) {
                 return;
             }
             //Only display the comment if it's requested for the right answer
-            if (comment.answer_id !== parseInt(req.params.aid)) {
+            if (comment.answer_id !== parseInt(req.params.aid, 10)) {
                 console.log("Answer ID mismatch: requested " + req.params.aid + " but found " + comment.answer_id);
                 if (req.accepts('html', 'json') === 'json') {
                     res.type('json');
@@ -101,7 +101,7 @@ router.get('/questions/:qid/answers/:aid/comments/:cid', function (req, res) {
                         res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                         return;
                     }
-                    if (answer.question_id !== parseInt(req.params.qid)) {
+                    if (answer.question_id !== parseInt(req.params.qid, 10)) {
                         console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
                         if (req.accepts('html', 'json') === 'json') {
                             res.type('json');
@@ -145,7 +145,7 @@ router.put('/questions/:qid/answers/:aid/comments/:cid', function (req, res) {
                 return;
             }
             //Only display the comment if it's requested for the right answer
-            if (comment.answer_id !== parseInt(req.params.aid)) {
+            if (comment.answer_id !== parseInt(req.params.aid, 10)) {
                 console.log("Answer ID mismatch: requested " + req.params.aid + " but found " + comment.answer_id);
                 if (req.accepts('html', 'json') === 'json') {
                     res.type('json');
@@ -170,7 +170,7 @@ router.put('/questions/:qid/answers/:aid/comments/:cid', function (req, res) {
                         res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                         return;
                     }
-                    if (answer.question_id !== parseInt(req.params.qid)) {
+                    if (answer.question_id !== parseInt(req.params.qid, 10)) {
                         console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
                         if (req.accepts('html', 'json') === 'json') {
                             res.type('json');
@@ -225,7 +225,7 @@ router.delete('/questions/:qid/answers/:aid/comments/:cid', function (req, res) 
                 return;
             }
             //Only display the comment if it's requested for the right answer
-            if (comment.answer_id !== parseInt(req.params.aid)) {
+            if (comment.answer_id !== parseInt(req.params.aid, 10)) {
                 console.log("Answer ID mismatch: requested " + req.params.aid + " but found " + comment.answer_id);
                 if (req.accepts('html', 'json') === 'json') {
                     res.type('json');
@@ -250,7 +250,7 @@ router.delete('/questions/:qid/answers/:aid/comments/:cid', function (req, res) 
                         res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                         return;
                     }
-                    if (answer.question_id !== parseInt(req.params.qid)) {
+                    if (answer.question_id !== parseInt(req.params.qid, 10)) {
                         console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
                         if (req.accepts('html', 'json') === 'json') {
                             res.type('json');
@@ -299,13 +299,13 @@ router.get('/questions/:qid/answers/:aid/comments', function (req, res) {
                 return;
             }
             //Check if we're looking at the right question for this answer
-            if (answer.question_id !== parseInt(req.params.qid)) {
+            if (answer.question_id !== parseInt(req.params.qid, 10)) {
                 console.log("Question ID mismatch: requested " + req.params.qid + " but found " + answer.question_id);
                 if (req.accepts('html', 'json') === 'json') {
                     res.type('json');
                     res.status(404).send(JSON.stringify({message: "Not found"}));
                     return;
-                }  
+                }
                 res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
