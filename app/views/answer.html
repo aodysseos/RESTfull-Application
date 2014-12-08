@@ -1,41 +1,108 @@
-<!DOCTYPE html>
-<html>
-	<head>
-  		<meta charset="utf-8">
-		<title>{{answer.title}}</title>
-		<link rel='stylesheet' href='/stylesheets/style.css'>
-	</head>	
-	<body>
-	<article>
-	<h2>{{answer.title}}</h2>
-	<p>{{answer.content}}</p>
-	</article>
-	<a href="/questions/{{answer.question_id}}">Back to question</a>
-	<h3>Edit this answer:</h3>
-	<form method="POST" action="?_method=PUT">
-		<input type="text" name="title" id="title">
-		<input type="text" name="content" id="content">
-		<button type="submit">Edit</button>
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<title>COMP6218 Coursework: {{question.title}}</title> 
+<link rel="stylesheet" type="text/css" href="/style.css">
+</head> 
+<body> 
+  <header>
+    <div id="hlogo"> 
+      <img src="/logo.png" alt="logo" height="45" width="140" >
+    </div> 
+    <nav>  
+      <ul> 
+      <!-- Navigation --> 
+        <li><a href="/">HOME PAGE</a></li>
+        <li><a href="/questions">QUESTIONS</a></li>
+		<li><a href="/questions#askform">ASK A QUESTION</a></li>
+      </ul> 
+    </nav>
+  </header>
+  <div class="content"> 
+      <h2><a href="/questions/{{answer.question_id}}">&lt; Back to question</a></h2>
+      <article class="question">
+          <div class="question-header"> 
+            <h1><a href="/questions/{{ question.id }}" class="question-title">{{ answer.title }}</a></h1>
+          </div>
+          <div class="details">
+              <div class="question-content">
+                <p>{{ answer.content }}</p>
+              </div>              
+              <div class="post-info">
+                <div class="post-menu">
+                  <a href="#edit" class="suggest-edited-post">edit</a>
+                  <span class="lsep">|<span>
+                  <a href="#comments" class="comments-link">comments</a>
+                </div>
+                <div class="signiture">
+                <p>answer<!-- <time datetime="2014-06-29T23:31:45+01:00">June 29th 2014</time>!--> by Anonymous</p> 
+                </div>
+              </div> 
+        </div>
+      </article>
+  </div>
+  <h1>Edit this answer!</h1>
+<div id="edit">
+  <form method="POST" action="?_method=PUT">
+      <div class="form-item">
+        <label for="atitle">Title:</label><br>
+        <input type="text" name="title" id="title" class="titlefield" maxlength="100" value="{{ answer.title }}">
+      </div>
+      <div class="form-item">
+        <strong><h2>Answer text:</h2></strong>
+        <textarea name="content" id="content" class="answer-input" cols="82"rows="5" placeholder="Enter text here..." required>{{ answer.content }}</textarea><br>
+      </div>
+      <input name="ask" type="submit" value="Edit" class="btn-submit">
+      <input name="reset" type="reset" value="Cancel" class="btn-cancel">
+  </form><br>
+  	<form method="POST" action="?_method=DELETE">
+		<input name="ask" type="submit" value="Delete answer!" class="btn-submit">
 	</form>
-	<form method="POST" action="?_method=DELETE">
-		<button type="submit">Delete answer!</button>
-	</form>
-		<h2>Comments</h2>
+</div>
+    <div id="comments">
 	{% for comment in answer.comments %}
-	<article>
-	<h3><a href="{{answer.id}}/comments/{{comment.id}}">{{comment.title}}</a></h3>
-	<p>{{comment.content}}</p>
-	</article>
+    {% if loop.first %}<h1>Comments</h1>{% endif %}
+      <article class="answer"> 
+        <!--Answer summary-->
+        <div class="answer-header"> 
+          <h3><a href="{{answer.id}}/comments/{{comment.id}}">{{comment.title}}</a></h3>
+        </div>
+        <div class="answer-details">
+            <div class="answer-content">
+              <p>{{comment.content}}</p>
+            </div> 
+            <div class="post-info">
+                 <div class="signiture">
+                   <small>Anonymous</small>
+                 </div>
+            </div>
+        </div>
+      </article>
+    </div>
 	{% endfor %}
-	<h2>Add your own comment!</h2>
-	        <form method="POST" action="{{answer.id}}/comments">
-                <input type="text" name="title" id="title">
-                <input type="text" name="content" id="content">
-                <button type="submit">Post comment!</button>
-        </form>
-	</body>
-	<footer>
-		<p>COMP6218 RESTful Application assginment</p>
-	</footer>
-</html>	
+<h1>Comment on this answer!</h1>
+<div id="comment">
+  <form method="POST" action="{{answer.id}}/comments">
+      <div class="form-item">
+        <label for="ctitle">Title:</label><br>
+        <input type="text" name="title" id="title" class="titlefield" maxlength="100" >
+      </div>
+      <div class="form-item">
+        <strong><h2>Comment text:</h2></strong>
+        <textarea name="content" id="content" cols="82"rows="5" class="answer-input" placeholder="Enter text here..." required></textarea><br>
+      </div>
+      <input name="ask" type="submit" value="Post answer" class="btn-submit">
+      <input name="ask" type="reset" value="Cancel" class="btn-cancel">
+  </form>
+</div>
+
+  <footer> 
+  <!-- Footer --> 
+     <br>
+     <div id="copyright">
+        <p>Copyright site design / logo 2014 </p>
+     </div>
+  </footer>
+</body> 
+</html>
   
