@@ -30,10 +30,4 @@ module.exports.define = function (db, models) {
     models.answer.hasOne('question', db.models.question, {reverse: 'answers', autoFetch: false, cache: false}); //Each answer belongs to a question
     models.q_comment.hasOne('question', db.models.question, {reverse: 'comments', autoFetch: false, cache: false}); //Each question comment belongs to a question
     models.a_comment.hasOne('answer', db.models.answer, {reverse: 'comments', autoFetch: false, cache: false}); //Each answer comment belongs to an answer
-
-    //Synchronise all models
-    models.question.sync();
-    models.answer.sync();
-    models.q_comment.sync();
-    models.a_comment.sync();
 };
