@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en"> 
-<head> 
+<head>
+<meta charset="utf-8"/>
 <title>COMP6218 Coursework</title> 
 <link rel="stylesheet" type="text/css" href="/style.css">
 </head> 
@@ -18,11 +19,11 @@
       </ul> 
     </nav>
   </header>
-  <div id="content"> 
+  <div id="contents"> 
 	{% for question in all_questions %}
       <article class="question">
           <div class="question-header"> 
-            <h1><a href="/questions/{{ question.id }}" class="question-title">{{ question.title }}</a></h1>
+            <h2><a href="/questions/{{ question.id }}" class="question-title">{{ question.title }}</a></h2>
           </div>
           <div class="details">
               <div class="question-content">
@@ -31,9 +32,9 @@
               <div class="post-info">
                 <div class="post-menu">
                   <a href="/questions/{{ question.id }}#answer" class="answer-link">answer</a>
-                  <span class="lsep">|<span>
+                  <span class="lsep">|</span>
                   <a href="/questions/{{ question.id }}#edit" class="suggest-edited-post">edit</a>
-                  <span class="lsep">|<span>
+                  <span class="lsep">|</span>
                   <a href="/questions/{{ question.id }}#comments" class="comments-link">comments</a>
                 </div>
                 <div class="signiture">
@@ -49,12 +50,12 @@
 <div id="askform">
   <form action="/questions" method="post">
       <div class="form-item">
-        <label for="qtitle">Title:</label><br>
+        <label for="title">Title:</label><br>
         <input type="text" name="title" id="title" class="titlefield" maxlength="100" >
       </div>
       <div class="form-item">
-        <strong><h2>Question text:</h2></strong>
-        <textarea name="content" id="content" class="answer-input" cols="82"rows="20" placeholder="Enter text here..." required></textarea><br>
+        <h2>Question text:</h2>
+        <textarea name="content" id="content" class="answer-input" cols="82" rows="20" placeholder="Enter text here..." required></textarea><br>
       </div>
       <input name="ask" type="submit" value="Ask question" class="btn-submit">
       <input name="ask" type="reset" value="Cancel" class="btn-cancel">

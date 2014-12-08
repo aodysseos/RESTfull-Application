@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en"> 
-<head> 
+<head>
+<meta charset="utf-8"/>
 <title>COMP6218 Coursework: {{question.title}}</title> 
 <link rel="stylesheet" type="text/css" href="/style.css">
 </head> 
@@ -20,31 +21,30 @@
   </header>
   <h2><a href="/questions/{{comment.question_id}}">&lt; Back to question</a></h2>
   <div class="content"> 
-      <article class="question">
-          <div class="question-header"> 
+      <article class="comment">
+          <div class="comment-header"> 
             <h1><a href="." class="question-title">{{ comment.title }}</a></h1>
           </div>
           <div class="details">
-              <div class="question-content">
+              <div class="comment-content">
                 <p>{{ comment.content }}</p>
               </div>
                 <div class="signiture">
                 <p>asked<!-- <time datetime="2014-06-29T23:31:45+01:00">June 29th 2014</time>!--> by Anonymous</p> 
                 </div>
-              </div> 
-        </div>
+          </div> 
       </article>
   </div>
-  <h1>Edit this comment!</h1>
+  <h2>Edit this comment!</h2>
 <div id="edit">
   <form method="POST" action="?_method=PUT">
       <div class="form-item">
-        <label for="atitle">Title:</label><br>
+        <label for="title">Title:</label><br>
         <input type="text" name="title" id="title" class="titlefield" maxlength="100" value="{{ comment.title }}">
       </div>
       <div class="form-item">
-        <strong><h2>Comment text:</h2></strong>
-        <textarea name="content" id="content" class="answer-input" cols="82"rows="5" placeholder="Enter text here..." required>{{ comment.content }}</textarea><br>
+        <h2>Comment text:</h2>
+        <textarea name="content" id="content" class="answer-input" cols="82" rows="5" placeholder="Enter text here..." required>{{ comment.content }}</textarea><br>
       </div>
       <input name="ask" type="submit" value="Edit" class="btn-submit">
       <input name="reset" type="reset" value="Cancel" class="btn-cancel">

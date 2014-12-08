@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en"> 
-<head> 
+<head>
+<meta charset="utf-8"/>
 <title>COMP6218 Coursework: {{question.title}}</title> 
 <link rel="stylesheet" type="text/css" href="/style.css">
 </head> 
@@ -18,7 +19,7 @@
       </ul> 
     </nav>
   </header>
-  <div class="content"> 
+  <div class="contents"> 
       <article class="question">
           <div class="question-header"> 
             <h1><a href="/questions/{{ question.id }}" class="question-title">{{ question.title }}</a></h1>
@@ -30,9 +31,9 @@
               <div class="post-info">
                 <div class="post-menu">
                   <a href="#answer" class="answer-link">answer</a>
-                  <span class="lsep">|<span>
+                  <span class="lsep">|</span>
                   <a href="#edit" class="suggest-edited-post">edit</a>
-                  <span class="lsep">|<span>
+                  <span class="lsep">|</span>
                   <a href="#comments" class="comments-link">comments</a>
                 </div>
                 <div class="signiture">
@@ -42,16 +43,16 @@
         </div>
       </article>
   </div>
-  <h1>Edit this question!</h1>
+  <h2>Edit this question!</h2>
 <div id="edit">
   <form method="POST" action="?_method=PUT">
       <div class="form-item">
-        <label for="atitle">Title:</label><br>
+        <label for="title">Title:</label><br>
         <input type="text" name="title" id="title" class="titlefield" maxlength="100" value="{{ question.title }}">
       </div>
       <div class="form-item">
-        <strong><h2>Question text:</h2></strong>
-        <textarea name="content" id="content" class="answer-input" cols="82"rows="5" placeholder="Enter text here..." required>{{ question.content }}</textarea><br>
+        <h2>Question text:</h2>
+        <textarea name="content" id="content" class="answer-input" cols="82" rows="5" placeholder="Enter text here..." required>{{ question.content }}</textarea><br>
       </div>
       <input name="ask" type="submit" value="Edit" class="btn-submit">
       <input name="reset" type="reset" value="Cancel" class="btn-cancel">
@@ -61,7 +62,7 @@
 	</form>
 </div>
 	{% for answer in question.answers %}
-    {% if loop.first %}<h1>Answers</h1>{% endif %}
+    {% if loop.first %}<h2>Answers</h2>{% endif %}
       <article class="answer"> 
         <!--Answer summary-->
         <div class="answer-header"> 
@@ -74,7 +75,7 @@
             <div class="post-info">
                 <div class="post-menu">
                   <a href="{{question.id}}/answers/{{answer.id}}#comments" class="answers-link">comments</a>
-                  <span class="lsep">|<span>
+                  <span class="lsep">|</span>
                   <a href="{{question.id}}/answers/{{answer.id}}#edit" class="suggest-edited-post">edit</a>
                 </div>   
                  <div class="signiture">
@@ -84,16 +85,16 @@
         </div>
       </article>
 	{% endfor %}
-<h1>Answer this question!</h1>
+<h2>Answer this question!</h2>
 <div id="answer">
   <form method="POST" action="{{question.id}}/answers">
       <div class="form-item">
-        <label for="atitle">Title:</label><br>
-        <input type="text" name="title" id="title" class="titlefield" maxlength="100" >
+        <label for="title">Title:</label><br>
+        <input type="text" name="title" class="titlefield" maxlength="100" >
       </div>
       <div class="form-item">
-        <strong><h2>Answer text:</h2></strong>
-        <textarea name="content" id="content" cols="82"rows="5" class="answer-input" placeholder="Enter text here..." required></textarea><br>
+        <h2>Answer text:</h2>
+        <textarea name="content" cols="82" rows="5" class="answer-input" placeholder="Enter text here..." required></textarea><br>
       </div>
       <input name="ask" type="submit" value="Post answer" class="btn-submit">
       <input name="ask" type="reset" value="Cancel" class="btn-cancel">
@@ -101,14 +102,14 @@
 </div>
     <div id="comments">
 	{% for comment in question.comments %}
-    {% if loop.first %}<h1>Comments</h1>{% endif %}
-      <article class="answer"> 
-        <!--Answer summary-->
-        <div class="answer-header"> 
+    {% if loop.first %}<h2>Comments</h2>{% endif %}
+      <article class="comment"> 
+        <!--Comment summary-->
+        <div class="comment-header"> 
           <h3><a href="{{question.id}}/comments/{{comment.id}}">{{comment.title}}</a></h3>
         </div>
-        <div class="answer-details">
-            <div class="answer-content">
+        <div class="comment-details">
+            <div class="comment-content">
               <p>{{comment.content}}</p>
             </div> 
             <div class="post-info">
@@ -118,18 +119,18 @@
             </div>
         </div>
       </article>
-    </div>
 	{% endfor %}
-<h1>Comment on this question!</h1>
+    </div>
+<h2>Comment on this question!</h2>
 <div id="comment">
   <form method="POST" action="{{question.id}}/comments">
       <div class="form-item">
-        <label for="ctitle">Title:</label><br>
-        <input type="text" name="title" id="title" class="titlefield" maxlength="100" >
+        <label for="title">Title:</label><br>
+        <input type="text" name="title" class="titlefield" maxlength="100" >
       </div>
       <div class="form-item">
-        <strong><h2>Comment text:</h2></strong>
-        <textarea name="content" id="content" cols="82"rows="5" class="answer-input" placeholder="Enter text here..." required></textarea><br>
+        <h2>Comment text:</h2>
+        <textarea name="content" cols="82" rows="5" class="answer-input" placeholder="Enter text here..." required></textarea><br>
       </div>
       <input name="ask" type="submit" value="Post answer" class="btn-submit">
       <input name="ask" type="reset" value="Cancel" class="btn-cancel">

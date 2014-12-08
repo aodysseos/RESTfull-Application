@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en"> 
-<head> 
+<head>
+<meta charset="utf-8"/>
 <title>COMP6218 Coursework: {{question.title}}</title> 
 <link rel="stylesheet" type="text/css" href="/style.css">
 </head> 
@@ -18,20 +19,20 @@
       </ul> 
     </nav>
   </header>
-  <div class="content"> 
+  <div class="contents"> 
       <h2><a href="/questions/{{answer.question_id}}">&lt; Back to question</a></h2>
-      <article class="question">
-          <div class="question-header"> 
+      <article class="answer">
+          <div class="answer-header"> 
             <h1><a href="/questions/{{ question.id }}" class="question-title">{{ answer.title }}</a></h1>
           </div>
           <div class="details">
-              <div class="question-content">
+              <div class="answer-content">
                 <p>{{ answer.content }}</p>
               </div>              
               <div class="post-info">
                 <div class="post-menu">
                   <a href="#edit" class="suggest-edited-post">edit</a>
-                  <span class="lsep">|<span>
+                  <span class="lsep">|</span>
                   <a href="#comments" class="comments-link">comments</a>
                 </div>
                 <div class="signiture">
@@ -41,16 +42,16 @@
         </div>
       </article>
   </div>
-  <h1>Edit this answer!</h1>
+  <h2>Edit this answer!</h2>
 <div id="edit">
   <form method="POST" action="?_method=PUT">
       <div class="form-item">
-        <label for="atitle">Title:</label><br>
-        <input type="text" name="title" id="title" class="titlefield" maxlength="100" value="{{ answer.title }}">
+        <label>Title:</label><br>
+        <input type="text" name="title" class="titlefield" maxlength="100" value="{{ answer.title }}">
       </div>
       <div class="form-item">
-        <strong><h2>Answer text:</h2></strong>
-        <textarea name="content" id="content" class="answer-input" cols="82"rows="5" placeholder="Enter text here..." required>{{ answer.content }}</textarea><br>
+        <h2>Answer text:</h2>
+        <textarea name="content" class="answer-input" cols="82" rows="5" placeholder="Enter text here..." required>{{ answer.content }}</textarea><br>
       </div>
       <input name="ask" type="submit" value="Edit" class="btn-submit">
       <input name="reset" type="reset" value="Cancel" class="btn-cancel">
@@ -61,13 +62,13 @@
 </div>
     <div id="comments">
 	{% for comment in answer.comments %}
-    {% if loop.first %}<h1>Comments</h1>{% endif %}
-      <article class="answer"> 
+    {% if loop.first %}<h2>Comments</h2>{% endif %}
+      <article class="comment"> 
         <!--Answer summary-->
-        <div class="answer-header"> 
+        <div class="comment-header"> 
           <h3><a href="{{answer.id}}/comments/{{comment.id}}">{{comment.title}}</a></h3>
         </div>
-        <div class="answer-details">
+        <div class="comment-details">
             <div class="answer-content">
               <p>{{comment.content}}</p>
             </div> 
@@ -78,18 +79,18 @@
             </div>
         </div>
       </article>
-    </div>
 	{% endfor %}
-<h1>Comment on this answer!</h1>
+    </div>
+<h2>Comment on this answer!</h2>
 <div id="comment">
   <form method="POST" action="{{answer.id}}/comments">
       <div class="form-item">
-        <label for="ctitle">Title:</label><br>
-        <input type="text" name="title" id="title" class="titlefield" maxlength="100" >
+        <label>Title:</label><br>
+        <input type="text" name="title" class="titlefield" maxlength="100" >
       </div>
       <div class="form-item">
-        <strong><h2>Comment text:</h2></strong>
-        <textarea name="content" id="content" cols="82"rows="5" class="answer-input" placeholder="Enter text here..." required></textarea><br>
+        <h2>Comment text:</h2>
+        <textarea name="content" cols="82" rows="5" class="answer-input" placeholder="Enter text here..." required></textarea><br>
       </div>
       <input name="ask" type="submit" value="Post answer" class="btn-submit">
       <input name="ask" type="reset" value="Cancel" class="btn-cancel">
