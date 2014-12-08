@@ -10,11 +10,12 @@ router.get('/questions', function (req, res) {
         function (err, all_questions) {
             if (err) {
                 console.log('error!', err);
+                res.status(500).render('error', {error: "500: Internal Server Error", message: JSON.stringify(err)});
                 return;
             }
             // send to the client what we found in the DB
             if (req.accepts('html', 'json') === false) {
-                res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                 return;
             }
             if (req.accepts('html', 'json') === 'json') {
@@ -35,14 +36,14 @@ router.get('/questions/:id', function (req, res) {
         function (err, question) {
             if (err) {
                 console.log('error!', err);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             question.getAnswers(function (err, answers) {
                 question.getComments(function (err, comments) {
                     // send to the client what we found in the DB
                     if (req.accepts('html', 'json') === false) {
-                        res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                        res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                         return;
                     }
                     if (req.accepts('html', 'json') === 'json') {
@@ -67,7 +68,7 @@ router.post('/questions', function (req, res) {
         [{ title: req.body.title, content: req.body.content }],
         function (err, questions_created) {
             if (req.accepts('html', 'json') === false) {
-                res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                 return;
             }
             if (req.accepts('html', 'json') === 'json') {
@@ -88,7 +89,7 @@ router.delete('/questions/:id', function (req, res) {
         function (err, question) {
             if (err) {
                 console.log('error!', err);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             question.remove(function (err) {
@@ -97,7 +98,7 @@ router.delete('/questions/:id', function (req, res) {
                     return;
                 }
                 if (req.accepts('html', 'json') === false) {
-                    res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                    res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                     return;
                 }
                 if (req.accepts('html', 'json') === 'json') {
@@ -119,7 +120,7 @@ router.put('/questions/:id', function (req, res) {
         function (err, question) {
             if (err) {
                 console.log('error!', err);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             question.save({title: req.body.title, content: req.body.content}, function (err) {
@@ -129,7 +130,7 @@ router.put('/questions/:id', function (req, res) {
                 }
             });
             if (req.accepts('html', 'json') === false) {
-                res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                 return;
             }
             if (req.accepts('html', 'json') === 'json') {

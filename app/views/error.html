@@ -1,18 +1,33 @@
-<!DOCTYPE html>
-<html>
-	<head>
-  		<meta charset="utf-8">
-		<title>Error</title>
-		<link rel='stylesheet' href='/stylesheets/style.css'>
-	</head>	
-	<body>
-		<script type="text/javascript"></script>	
-	    <h1>{{message}}</h1>
-	    <h2>{{error.status}}</h2>
-	    <pre>{{error.status}}</pre>
-	</body>
-	<footer>
-		<p>&copy; COMP6218 RESTfull Application assginment</p>
-	</footer>
-</html>	
-  
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<title>COMP6218 Coursework: {{ error }}</title> 
+<link rel="stylesheet" type="text/css" href="/style.css">
+</head> 
+<body> 
+  <header>
+    <div id="hlogo"> 
+      <img src="/logo.png" alt="logo" height="45" width="140" >
+    </div> 
+    <nav>  
+      <ul> 
+      <!-- Navigation --> 
+        <li><a href="/">HOME PAGE</a></li>
+        <li><a href="/questions">QUESTIONS</a></li>
+		<li><a href="/questions#askform">ASK A QUESTION</a></li>
+      </ul> 
+    </nav>
+  </header>
+  <h1>Error {{ error }}</h1>
+  <p>{{ message }}</p>
+  <p><a href="/">Return to home page</a></p>
+  <footer> 
+  <!-- Footer --> 
+     <br>
+     <div id="copyright">
+        <p>Copyright site design / logo 2014 </p>
+     </div>
+  </footer>
+
+</body> 
+</html>

@@ -10,7 +10,7 @@ router.post('/questions/:id/comments', function (req, res) {
         function (err, question) {
             if (err) {
                 console.log('error!', err);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             console.log("Adding comment to question " + question.id);
@@ -19,11 +19,11 @@ router.post('/questions/:id/comments', function (req, res) {
                 function (err, comments_created) {
                     if (err) {
                         console.log(err);
-                        res.status(500).send("Internal server error");
+                        res.status(500).render('error', {error: "500: Internal Server Error", message: JSON.stringify(err)});
                         return;
                     }
                     if (req.accepts('html', 'json') === false) {
-                        res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                        res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                         return;
                     }
                     if (req.accepts('html', 'json') === 'json') {
@@ -46,18 +46,18 @@ router.get('/questions/:qid/comments/:cid', function (req, res) {
         function (err, comment) {
             if (err) {
                 console.log('error!', err);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             //Only display the comment if it's requested for the right question
             if (comment.question_id !== parseInt(req.params.qid)) {
                 console.log("Question ID mismatch: requested " + req.params.qid + " but found " + comment.question_id);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             // send to the client what we found in the DB
             if (req.accepts('html', 'json') === false) {
-                res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                 return;
             }
             if (req.accepts('html', 'json') === 'json') {
@@ -78,23 +78,23 @@ router.put('/questions/:qid/comments/:cid', function (req, res) {
         function (err, comment) {
             if (err) {
                 console.log('error!', err);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             if (comment.question_id !== parseInt(req.params.qid)) {
                 console.log("Question ID mismatch: requested " + req.params.qid + " but found " + comment.question_id);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             comment.save({title: req.body.title, content: req.body.content}, function (err) {
                 if (err) {
                     console.log('error!', err);
-                    res.status(500).send("500: Internal Server Error\n\n");
+                    res.status(500).render('error', {error: "500: Internal Server Error", message: JSON.stringify(err)});
                     return;
                 }
             });
             if (req.accepts('html', 'json') === false) {
-                res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                 return;
             }
             if (req.accepts('html', 'json') === 'json') {
@@ -115,12 +115,12 @@ router.delete('/questions/:qid/comments/:cid', function (req, res) {
         function (err, comment) {
             if (err) {
                 console.log('error!', err);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             if (comment.question_id !== parseInt(req.params.qid)) {
                 console.log("Question ID mismatch: requested " + req.params.qid + " but found " + comment.question_id);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             comment.remove(function (err) {
@@ -129,7 +129,7 @@ router.delete('/questions/:qid/comments/:cid', function (req, res) {
                     return;
                 }
                 if (req.accepts('html', 'json') === false) {
-                    res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                    res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                     return;
                 }
                 if (req.accepts('html', 'json') === 'json') {
@@ -151,13 +151,13 @@ router.get('/questions/:id/comments', function (req, res) {
         function (err, question) {
             if (err) {
                 console.log('error!', err);
-                res.status(404).send(req.url + " not found\n\n");
+                res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
             question.getComments(function (err, comments) {
                 // send to the client what we found in the DB
                 if (req.accepts('html', 'json') === false) {
-                    res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+                    res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                     return;
                 }
                 if (req.accepts('html', 'json') === 'json') {

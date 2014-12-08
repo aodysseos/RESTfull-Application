@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res) {
     if (req.accepts('html', 'json') === false) {
-        res.status(406).send("Not Acceptable. This application supports text/html and application/json responses.\n\n");
+        res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
         return;
     }
     if (req.accepts('html', 'json') === 'json') {
