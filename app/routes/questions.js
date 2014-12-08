@@ -10,6 +10,11 @@ router.get('/questions', function (req, res) {
         function (err, all_questions) {
             if (err) {
                 console.log('error!', err);
+                if (req.accepts('html', 'json') === 'json') {
+                    res.type('json');
+                    res.status(500).send(JSON.stringify(err));
+                    return;
+                }
                 res.status(500).render('error', {error: "500: Internal Server Error", message: JSON.stringify(err)});
                 return;
             }
@@ -36,6 +41,11 @@ router.get('/questions/:id', function (req, res) {
         function (err, question) {
             if (err) {
                 console.log('error!', err);
+                if (req.accepts('html', 'json') === 'json') {
+                    res.type('json');
+                    res.status(404).send(JSON.stringify(err));
+                    return;
+                }
                 res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
@@ -67,6 +77,16 @@ router.post('/questions', function (req, res) {
     req.models.question.create(
         [{ title: req.body.title, content: req.body.content }],
         function (err, questions_created) {
+            if (err) {
+                console.log('error!', err);
+                if (req.accepts('html', 'json') === 'json') {
+                    res.type('json');
+                    res.status(500).send(JSON.stringify(err));
+                    return;
+                }
+                res.status(500).render('error', {error: "500: Internal Server Error", message: JSON.stringify(err)});
+                return;
+            }
             if (req.accepts('html', 'json') === false) {
                 res.status(406).render('error', {error: "406: Not Acceptable", message: "This application supports text/html and application/json responses."});
                 return;
@@ -89,6 +109,11 @@ router.delete('/questions/:id', function (req, res) {
         function (err, question) {
             if (err) {
                 console.log('error!', err);
+                if (req.accepts('html', 'json') === 'json') {
+                    res.type('json');
+                    res.status(404).send(JSON.stringify(err));
+                    return;
+                }
                 res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
@@ -120,6 +145,11 @@ router.put('/questions/:id', function (req, res) {
         function (err, question) {
             if (err) {
                 console.log('error!', err);
+                if (req.accepts('html', 'json') === 'json') {
+                    res.type('json');
+                    res.status(404).send(JSON.stringify(err));
+                    return;
+                }
                 res.status(404).render('error', {error: "404: Not Found", message: req.url + " not found"});
                 return;
             }
