@@ -128,7 +128,7 @@ router.delete('/questions/:id', function (req, res) {
                 }
                 if (req.accepts('html', 'json') === 'json') {
                     res.type('json');
-                    res.send(JSON.stringify({deleted: true}));
+                    res.send(JSON.stringify({message: "success"}));
                 } else {
                     res.redirect(303, '/questions');
                 }
