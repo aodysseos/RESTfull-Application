@@ -10,9 +10,11 @@ The following libraries are required (as indicated in package.json):
     "morgan": "~1.3.0",
     "orm": "^2.1.20",
     "sqlite3": "^3.0.4",
-    "swig": "~1.4.2"
+    "swig": "~1.4.2",
+    "connect-slashes": "~1.3.0"
 
-Once those are installed using npm, the application can be initiated using "npm start"
+
+Once those are installed using npm ("sudo npm install"), the application can be initiated using "npm start"
 
 The application will listen on port 3000. Currently, it does not attempt to recover if this port is in use. This can be edited in ./bin/www
 
