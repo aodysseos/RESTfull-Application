@@ -1,6 +1,9 @@
 COMP6218 Assignment, group 9
 fmd2g11, mjg2c10, yx3n13, ao5g14
 
+NOTE:
+All js code validates in jslint with the addition of the regexp: true flag. We decided to use a wildcard-based regex substitution in our JSON output, which is technically unsafe. However, it's only used internally, so if input validation was properly implemented, this could never be harmful.
+
 Setup:
 The following libraries are required (as indicated in package.json):
     "body-parser": "~1.8.1",
@@ -19,7 +22,7 @@ Once those are installed using npm ("sudo npm install"), the application can be 
 The application will listen on port 3000. Currently, it does not attempt to recover if this port is in use. This can be edited in ./bin/www
 
 The following URLs and methods are supported. Any valid GET request will also respond to HEAD.
-All POST and PUT requests must provide two strings, named "title" and "content". If not provided, they will be assumed to be empty strings.
+All POST and PUT requests must provide two strings, named "title" and "content". If not provided, they will be assumed to be empty strings. The input is currently not validated or sanitised in any way as this is out of scope for this coursework.
 
 GET / - if HTML, returns a generic homepage, if JSON, returns the online status
 
