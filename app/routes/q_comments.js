@@ -50,7 +50,7 @@ router.get('/questions/:qid/comments/:cid', function (req, res) {
                 return;
             }
             //Only display the comment if it's requested for the right question
-            if (comment.question_id !== req.params.qid) {
+            if (comment.question_id !== parseInt(req.params.qid)) {
                 console.log("Question ID mismatch: requested " + req.params.qid + " but found " + comment.question_id);
                 res.status(404).send(req.url + " not found\n\n");
                 return;
@@ -81,7 +81,7 @@ router.put('/questions/:qid/comments/:cid', function (req, res) {
                 res.status(404).send(req.url + " not found\n\n");
                 return;
             }
-            if (comment.question_id !== req.params.qid) {
+            if (comment.question_id !== parseInt(req.params.qid)) {
                 console.log("Question ID mismatch: requested " + req.params.qid + " but found " + comment.question_id);
                 res.status(404).send(req.url + " not found\n\n");
                 return;
@@ -118,7 +118,7 @@ router.delete('/questions/:qid/comments/:cid', function (req, res) {
                 res.status(404).send(req.url + " not found\n\n");
                 return;
             }
-            if (comment.question_id !== req.params.qid) {
+            if (comment.question_id !== parseInt(req.params.qid)) {
                 console.log("Question ID mismatch: requested " + req.params.qid + " but found " + comment.question_id);
                 res.status(404).send(req.url + " not found\n\n");
                 return;
