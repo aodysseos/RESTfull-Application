@@ -148,7 +148,7 @@ router.put('/questions/:qid/answers/:aid/comments/:cid', function (req, res) {
 });
 
 /* DELETE comment */
-router.delete('/questions/:qid/comments/:cid', function (req, res) {
+router.delete('/questions/:qid/answers/:aid/comments/:cid', function (req, res) {
     req.models.a_comment.get(
         req.params.cid,
         {}, // no options
